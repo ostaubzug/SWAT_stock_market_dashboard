@@ -1,0 +1,63 @@
+# Angular / Node.js
+node_modules/
+dist/
+.angular/
+.sass-cache/
+coverage/
+.npm/
+.eslintcache/
+npm-debug.log
+yarn-error.log
+testem.log
+package-lock.json
+
+# .NET Core / C#
+StockBackend/bin/
+StockBackend/StockBackendTests/bin/
+StockBackend/obj/
+StockBackend/StockBackendTests/obj/
+StockBackend/.vs/
+StockBackend/wwwroot/
+StockBackend/publish/
+StockBackend/*.user
+StockBackend/*.suo
+StockBackend/*.userosscache
+StockBackend/*.sln.docstates
+StockBackend/*.dll
+StockBackend/*.exe
+StockBackend/*.pdb
+StockBackend/*.cache
+StockBackend/StockBackendTests/[Tt]est[Rr]esult*/
+StockBackend/[Bb]uild[Ll]og.*
+
+# JetBrains Rider
+.idea/
+*.DotSettings.user
+.run/
+_ReSharper*/
+*.resharper
+
+# Environment variables and secrets
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+*.Development.json
+Properties/launchSettings.json
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Documentation
+doc/output/
+
+# Misc
+.history/
+.ionide/

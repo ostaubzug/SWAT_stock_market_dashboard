@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockBackend", "StockBackend.csproj", "{F496E2A1-1002-4EEA-8AC0-A57119D62702}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E01264F-587E-471D-8DEC-51292916B987}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockBackendTests", "StockBackendTests\StockBackendTests.csproj", "{C1331F50-D2F6-4CF5-8248-7114CCD70DFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F496E2A1-1002-4EEA-8AC0-A57119D62702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F496E2A1-1002-4EEA-8AC0-A57119D62702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F496E2A1-1002-4EEA-8AC0-A57119D62702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F496E2A1-1002-4EEA-8AC0-A57119D62702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1331F50-D2F6-4CF5-8248-7114CCD70DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1331F50-D2F6-4CF5-8248-7114CCD70DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1331F50-D2F6-4CF5-8248-7114CCD70DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1331F50-D2F6-4CF5-8248-7114CCD70DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

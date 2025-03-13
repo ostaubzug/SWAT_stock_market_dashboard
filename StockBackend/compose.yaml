@@ -1,0 +1,6 @@
+﻿services:
+  stockbackend:
+    image: stockbackend
+    build:
+      context: .
+      dockerfile: Dockerfile
