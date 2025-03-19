@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = 'http://localhost:8080/api/auth';
 
 export interface LoginResponse {
   message: string;
@@ -25,7 +25,7 @@ export interface User {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -36,10 +36,7 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
   public authInitialized$ = this.authInitializedSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.checkTokenOnInit();
   }
 
@@ -62,10 +59,10 @@ export class AuthService {
     }
 
     return this.getUserInfo().pipe(
-      tap(user => {
+      tap((user) => {
         this.currentUserSubject.next(user);
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error('Error fetching user info:', error);
         if (error.status === 401) {
           this.logout();
@@ -88,13 +85,15 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${API_URL}/login`, { email, password }).pipe(
-      tap(response => {
-        localStorage.setItem('token', response.token);
-        this.isAuthenticatedSubject.next(true);
-        this.refreshUserInfo().subscribe();
-      })
-    );
+    return this.http
+      .post<LoginResponse>(`${API_URL}/login`, { email, password })
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('token', response.token);
+          this.isAuthenticatedSubject.next(true);
+          this.refreshUserInfo().subscribe();
+        })
+      );
   }
 
   logout(): void {

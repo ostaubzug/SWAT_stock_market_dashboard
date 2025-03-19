@@ -1,27 +1,47 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using StockBackend.Services;
 using StockBackend.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Add JWT Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
+            builder.Configuration["Jwt:Key"] ?? "defaultSecretKey12345678901234567890")),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure MongoDB
 var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDB") ?? "mongodb://localhost:27017";
 var mongoClient = new MongoClient(mongoConnectionString);
 var database = mongoClient.GetDatabase("stockdb");
 
-// Register services
 builder.Services.AddSingleton<IMongoDatabase>(database);
 builder.Services.AddScoped<IStockService, StockService>();
 
+// Print startup message
+Console.WriteLine("Starting up StockBackend application...");
+
 var app = builder.Build();
 
-// Configure CORS
 app.UseCors(options =>
 {
     options.WithOrigins("http://localhost:4200")
@@ -30,7 +50,6 @@ app.UseCors(options =>
            .AllowAnyHeader();
 });
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -38,22 +57,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Add Authentication before Authorization
+app.UseAuthentication(); 
 app.UseAuthorization();
 
-// Seed initial stock data
 SeedData(database);
 
-// Map controllers
 app.MapControllers();
+Console.WriteLine("Controllers mapped successfully");
 
 app.Run();
 
-// Seed method to populate initial stock data
 void SeedData(IMongoDatabase db)
 {
     var stockCollection = db.GetCollection<Stock>("stocks");
     
-    // Check if collection is empty
     if (!stockCollection.Find(_ => true).Any())
     {
         var stocksData = new List<Stock>

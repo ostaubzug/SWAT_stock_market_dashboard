@@ -87,8 +87,6 @@ public class StockController : ControllerBase
         }
     }
 
-    // User stocks endpoints without authentication
-
     [HttpGet("user-stocks")]
     public async Task<ActionResult<List<StockWithData>>> GetUserStocks([FromQuery] string symbols)
     {
@@ -130,7 +128,6 @@ public class StockController : ControllerBase
                 return BadRequest(new { error = "No valid stock symbols provided" });
             }
 
-            // Since we're not implementing auth, we'll just return success
             return Ok(new { success = true, message = "Stocks saved successfully" });
         }
         catch (Exception ex)
@@ -142,7 +139,7 @@ public class StockController : ControllerBase
     private List<HistoricalData> GenerateMockHistoricalData(string symbol)
     {
         var data = new List<HistoricalData>();
-        var random = new Random(symbol.GetHashCode()); // Use symbol as seed for consistent data
+        var random = new Random(symbol.GetHashCode());
         var basePrice = random.Next(50, 200);
         var currentDate = DateTime.Now.AddDays(-30);
 

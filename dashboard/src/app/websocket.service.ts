@@ -20,7 +20,7 @@ export class WebSocketService {
   private isConnected = false;
 
   constructor() {
-    this.socket = io('http://localhost:5000');
+    this.socket = io('http://localhost:8081');
 
     this.socket.on('connect', () => {
       console.log('Connected to WebSocket server');

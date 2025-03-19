@@ -7,14 +7,14 @@ export interface Stock {
   name: string;
   price: number;
   change: number;
-  data?: Array<{ date: Date, value: number }>;
+  data?: Array<{ date: Date; value: number }>;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StockService {
-  private apiUrl = 'http://localhost:5000/api/stocks';
+  private apiUrl = 'http://localhost:8080/api/stocks';
 
   constructor(private http: HttpClient) {}
 

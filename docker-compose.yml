@@ -9,6 +9,28 @@ services:
       - mongo-data:/data/db
     environment:
       - MONGO_INITDB_DATABASE=stockdb
+    networks:
+      - stock-network
+
+  stockbackend:
+    build:
+      context: ./StockBackend
+      dockerfile: Dockerfile
+    container_name: stock-backend
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - mongo
+    environment:
+      - ConnectionStrings__MongoDB=mongodb://mongo:27017
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - stock-network
 
 volumes:
   mongo-data:
+
+networks:
+  stock-network:
+    driver: bridge
