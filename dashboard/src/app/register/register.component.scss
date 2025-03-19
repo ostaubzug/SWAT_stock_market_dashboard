@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $primary-color: #007bff;
 $primary-dark: #0069d9;
 $text-dark: #333;
@@ -82,7 +84,7 @@ $white: #fff;
       }
 
       &:disabled {
-        background-color: lighten($primary-color, 20%);
+        background-color: color.adjust($primary-color, $lightness: 20%);
         cursor: not-allowed;
       }
     }
@@ -188,11 +190,21 @@ $white: #fff;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
